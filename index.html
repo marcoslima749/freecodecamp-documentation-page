@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>React Quick Start Guide</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="./styles.css"/>
+
+  </head>
+  <body>
+    <nav id="navbar">
+      <header>GET STARTED</header>
+      <a class="nav-link" href="#Quick_Start">Quick Start</a>
+      <a class="nav-link" href="#Creating_and_nesting_components">Creating and nesting components</a>
+      <a class="nav-link" href="#Writing_markup_with_JSX">Writing markup with JSX</a>
+      <a class="nav-link" href="#Adding_styles">Adding styles</a>
+      <a class="nav-link" href="#Displaying_data">Displaying data</a>
+    <a class="nav-link" href="#Conditional_rendering">Conditional rendering</a>
+    <a class="nav-link" href="#Rendering_lists">Rendering lists</a>
+    <a class="nav-link" href="#Responding_to_events">Responding to events</a>
+    <a class="nav-link" href="#Updating_the_screen">Updating the screen</a>
+    <a class="nav-link" href="#Using_Hooks">Using Hooks</a>
+    <a class="nav-link" href="#Sharing_data_between_components">Sharing data between components</a>
+    <a class="nav-link" href="#Next_Steps">Next Steps</a>
+    </nav>
+    <main id="main-doc">
+      <section id="Quick_Start" class="main-section">
+        <header>Quick Start</header>
+        <article>
+          <p>Welcome to the React documentation! This page will give you an introduction to the 80% of React concepts that you will use on a daily basis.</p>
+          <ul>
+            <h3>You will learn</h3>
+            <li>How to create and nest components</li>
+            <li>How to add markup and styles</li>
+            <li>How to display data</li>
+            <li>How to render conditions and lists</li>
+            <li>How to respond to events and update the screen</li>
+            <li>How to share data between components</li>
+          </ul>
+        </article>
+      </section>
+      <div class="divider"></div>
+
+      <section id="Creating_and_nesting_components" class="main-section">
+        <header>Creating and nesting components</header>
+        <article>
+          <p>React apps are made out of components. A component is a piece of the UI (user interface) that has its own logic and appearance. A component can be as small as a button, or as large as an entire page. React components are JavaScript functions that return markup:
+          </p>
+          <pre><code>function MyButton() {
+              return (
+                &lt;button&gt;I'm a button&lt;/button&gt;
+              );
+            }</code></pre>
+          <p>Now that you've declared MyButton, you can nest it into another component:</p>
+
+          <pre><code>export default function MyApp() {
+                return (
+                  &lt;div&gt;
+                    &lt;h1&gt;Welcome to my app&lt;/h1&gt;
+                    &lt;MyButton /&gt;
+                    &lt;/div&gt;
+                );
+              }</code></pre>
+
+              <p>Notice that <code>&lt;MyButton /&gt;</code> starts with a capital letter. That's how you know it's a React component. React component names must always start with a capital letter, while HTML tags must be lowercase.</p>
+
+              <p >The <code>export default</code> keywords specify the main component in the file. If you're not familiar with some piece of JavaScript syntax, <a target="_blank" href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export" target="_blank">MDN</a> and <a target="_blank" href="https://javascript.info/import-export" target="_blank">javascript.info</a> have great references.</p>
+
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Writing_markup_with_JSX" class="main-section">
+        <header>Writing markup with JSX</header>
+        <article>
+          <p>The markup syntax you've seen above is called JSX. It is optional, but most React projects use JSX for its convenience. All of the <a target="_blank" href="https://react.dev/learn/installation">tools we recommend for local development</a> support JSX out of the box.</p>
+          <p>JSX is stricter than HTML. You have to close tags like <code>&lt;br /&gt;</code>. Your component also can't return multiple JSX tags. You have to wrap them into a shared parent, like a <code>&lt;div&gt;...&lt;/div&gt;</code> or an empty <code>&lt;&gt;...&lt;/&gt;</code> wrapper:</p>
+          <pre><code>function AboutPage () {
+            return(
+              &lt;&gt;
+                &lt;h1&gt;About&lt;/h1&gt;
+                &lt;p&gt;Hello there.&lt;br /&gt;How do you do?&lt;/p&gt;
+              &lt;/&gt;
+            );}</code></pre>
+          <p>If you have a lot of HTML to port to JSX, you can use an <a target="_blank" href="https://transform.tools/html-to-jsx">online converter.</a></p>
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Adding_styles" class="main-section">
+        <header>Adding styles</header>
+        <article>
+          <p>In React, you specify a CSS class with <code>className</code>. It works the same way as the HTML <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class" target="_blank"><code>class</code></a> attribute:</p>
+          <pre><code>&lt;img className="avatar" /&gt;</code></pre>
+          <p>Then you write the CSS rules for it in a separate CSS file:</p>
+          <pre><code>/* In your CSS */
+.avatar {
+  border-radius: 50%;
+}</code></pre>
+<p>React does not prescribe how you add CSS files. In the simplest case, you'll add a &lt;link&gt; tag to your HTML. If you use a build tool or a framework, consult its documentation to learn how to add a CSS file to your project.</p>
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Displaying_data" class="main-section">
+        <header>Displaying data</header>
+        <article>
+          <p>JSX lets you put markup into JavaScript. Curly braces let you “escape back” into JavaScript so that you can embed some variable from your code and display it to the user. For example, this will display <code>user.name</code>:</p>
+          <pre><code>return (
+  &lt;h1&gt;
+    {user.name}
+  &lt;/h1&gt;
+);</code></pre>
+          <p>You can also “escape into JavaScript” from JSX attributes, but you have to use curly braces instead of quotes. For example, <code>className="avatar"</code> passes the <code>"avatar"</code> string as the CSS class, but <code>src={user.imageUrl}</code> reads the JavaScript <code>user.imageUrl</code> variable value, and then passes that value as the <code>src</code> attribute:</p>
+          <pre><code>return (
+  &lt;img
+    className="avatar"
+    src={user.imageUrl}
+  /&gt;
+);</code></pre>
+<p>You can put more complex expressions inside the JSX curly braces too, for example, <a target="_blank" href="https://javascript.info/operators#string-concatenation-with-binary">string concatenation:</a></p>
+<pre><code>const user = {
+    name: 'Hedy Lamarr',
+    imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
+    imageSize: 90,
+  };
+  
+  export default function Profile() {
+    return (
+      &lt;&gt;
+        &lt;h1&gt;{user.name}&lt;/h1&gt;
+        &lt;img
+          className="avatar"
+          src={user.imageUrl}
+          alt={'Photo of ' + user.name}
+          style={{
+            width: user.imageSize,
+            height: user.imageSize
+          }}
+        /&gt;
+      &lt;/&gt;
+    );
+  }</code></pre>
+  <p>In the above example, <code>style={{}}</code> is not a special syntax, but a regular <code>{}</code> object inside the <code>style={ }</code> JSX curly braces. You can use the <code>style</code> attribute when your styles depend on JavaScript variables.</p>
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Conditional_rendering" class="main-section">
+        <header>Conditional rendering</header>
+        <article>
+          <p>In React, there is no special syntax for writing conditions. Instead, you'll use the same techniques as you use when writing regular JavaScript code. For example, you can use an <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else"><code>if</code></a> statement to conditionally include JSX:</p>
+          <pre><code>let content;
+if (isLoggedIn) {
+  content = &lt;AdminPanel /&gt;;
+} else {
+  content = &lt;LoginForm /&gt;;
+}
+return (
+  &lt;div&gt;
+    {content}
+  &lt;/div&gt;
+);</code></pre>
+<p>If you prefer more compact code, you can use the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator">conditional <code>?</code> operator</a>. Unlike <code>if</code>, it works inside JSX:</p>
+<pre><code>&lt;div&gt;
+    {isLoggedIn ? (
+      &lt;AdminPanel /&gt;
+    ) : (
+      &lt;LoginForm /&gt;
+    )}
+  &lt;/div&gt;</code></pre>
+  <p>When you don't need the <code>else</code> branch, you can also use a shorter <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation">logical <code>&&</code> syntax</a>:</p>
+  <pre><code>&lt;div&gt;
+    {isLoggedIn && &lt;AdminPanel /&gt;}
+&lt;/div&gt;</code></pre>
+<p>All of these approaches also work for conditionally specifying attributes. If you're unfamiliar with some of this JavaScript syntax, you can start by always using <code>if...else</code>.</p>
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Rendering_lists" class="main-section">
+        <header>Rendering lists</header>
+        <article>
+          <p>You will rely on JavaScript features like <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for"><code>for</code> loop</a> and the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>array map()</code> function</a> to render lists of components.<br/><br/>
+
+For example, let's say you have an array of products:</p>
+<pre><code>const products = [
+  { title: 'Cabbage', id: 1 },
+  { title: 'Garlic', id: 2 },
+  { title: 'Apple', id: 3 },
+];</code></pre>
+<p>Inside your component, use the <code>map()</code> function to transform an array of products into an array of <code>&lt;li&gt;</code> items:</p>
+<pre><code>const listItems = products.map(product =&gt;
+  &lt;li key={product.id}&gt;
+    {product.title}
+  &lt;/li&gt;
+);
+
+return (
+  &lt;ul&gt;{listItems}&lt;/ul&gt;
+);</code></pre>
+<p>Notice how <code>&lt;li&gt;</code> has a <code>key</code> attribute. For each item in a list, you should pass a string or a number that uniquely identifies that item among its siblings. Usually, a key should be coming from your data, such as a database ID. React uses your keys to know what happened if you later insert, delete, or reorder the items.</p>
+<pre><code>const products = [
+  { title: 'Cabbage', isFruit: false, id: 1 },
+  { title: 'Garlic', isFruit: false, id: 2 },
+  { title: 'Apple', isFruit: true, id: 3 },
+];
+
+export default function ShoppingList() {
+  const listItems = products.map(product =&gt;
+    &lt;li&gt;
+      key={product.id}
+      style={{
+        color: product.isFruit ? 'magenta' : 'darkgreen'
+      }}
+    &gt;
+      {product.title}
+    &lt;/li&gt;
+  );
+
+  return (
+    &lt;ul&gt;{listItems}&lt;/ul&gt;
+  );
+}</code></pre>
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Responding_to_events" class="main-section">
+        <header>Responding to events</header>
+        <article>
+          <p>You can respond to events by declaring <i>event handler</i> functions inside your components:</p>
+          <pre><code>function MyButton() {
+    function handleClick() {
+      alert('You clicked me!');
+    }
+  
+    return (
+      &lt;button onClick={handleClick}&gt;
+        Click me
+      &lt;/button&gt;
+    );
+  }</code></pre>
+  <p>Notice how <code>onClick={handleClick}</code> has no parentheses at the end! Do not <i>call</i> the event handler function: you only need to <i>pass it down</i>. React will call your event handler when the user clicks the button.</p>
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Updating_the_screen" class="main-section">
+        <header>Updating the screen</header>
+        <article>
+          <p>Often, you'll want your component to “remember” some information and display it. For example, maybe you want to count the number of times a button is clicked. To do this, add state to your component.
+
+First, import <a target="_blank" href="https://react.dev/reference/react/useState"><code>useState</code></a> from React:</p>
+<pre><code>import { useState } from 'react';</code></pre>
+<p>Now you can declare a <i>state</i> variable inside your component:</p>
+<pre><code>function MyButton() {
+  const [count, setCount] = useState(0);
+  // ...</code></pre>
+  <p>You'll get two things from <code>useState</code>: the current state (<code>count</code>), and the function that lets you update it (setCount). You can give them any names, but the convention is to write <code>[something, setSomething]</code>.
+
+The first time the button is displayed, <code>count</code> will be <code>0</code> because you passed <code>0</code> to <code>useState()</code>. When you want to change state, call <code>setCount()</code> and pass the new value to it. Clicking this button will increment the counter:<p>
+  <pre><code>function MyButton() {
+    const [count, setCount] = useState(0);
+  
+    function handleClick() {
+      setCount(count + 1);
+    }
+  
+    return (
+      &lt;button&gt; onClick={handleClick}&gt;
+        Clicked {count} times
+      &lt;/button&gt;
+    );
+  }</code></pre>
+  <p>React will call your component function again. This time, <code>count</code> will be <code>1</code>. Then it will be <code>2</code>. And so on.
+
+If you render the same component multiple times, each will get its own state. Click each button separately:<p>
+  <pre><code>import { useState } from 'react';
+
+export default function MyApp() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Counters that update separately&lt;/h1&gt;
+      &lt;MyButton /&gt;
+      &lt;MyButton /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function MyButton() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    &lt;button onClick={handleClick}&gt;
+      Clicked {count} times
+    &lt;/button&gt;
+  );
+}</code></pre>
+<p>Notice how each button “remembers” its own <code>count</code> state and doesn't affect other buttons.</p>
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Using_Hooks" class="main-section">
+        <header>Using Hooks</header>
+        <article>
+          <p>Functions starting with <code>use</code> are called <i>Hooks</i>. <code>useState</code> is a built-in Hook provided by React. You can find other built-in Hooks in the API reference. You can also write your own Hooks by combining the existing ones.
+
+Hooks are more restrictive than other functions. You can only call Hooks <i>at the top</i> of your components (or other Hooks). If you want to use <code>useState</code> in a condition or a loop, extract a new component and put it there.</p>
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Sharing_data_between_components" class="main-section">
+        <header>Sharing data between components</header>
+        <article>
+          <p>In the previous example, each <code>MyButton</code> had its own independent <code>count</code>, and when each button was clicked, only the <code>count</code> for the button clicked changed:</p>
+
+          <div class="img-group-left">
+
+            <img class="img-left" src="https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_child.png&w=640&q=75" />
+          <p class="img-left-caption">Initially, each <code>MyButton</code>'s <code>count</code> state is <code>0</code></p>
+
+          </div>
+          
+          
+          <div class="img-group-right">
+          
+          <img class="img-right" src="https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_child_clicked.png&w=640&q=75" />
+          <p class="img-right-caption">The first <code>MyButton</code> updates its <code>count</code> to <code>1</code></p>
+
+          </div>
+
+          <p>However, often you'll need components to share data and always update together.
+
+To make both <code>MyButton</code> components display the same <code>count</code> and update together, you need to move the state from the individual buttons “upwards” to the closest component containing all of them.
+
+In this example, it is <code>MyApp</code>:</p>
+
+<div class="img-group-left">
+<img class="img-left" src="https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_parent.png&w=640&q=75" />
+          <p class="img-left-caption">Initially, <code>MyApp</code>'s <code>count</code> state is <code>0</code> and is passed down to both children</p>
+</div>
+
+<div class="img-group-right">
+          <img class="img-right" src="https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fsharing_data_parent_clicked.png&w=640&q=75" />
+          <p class="img-right-caption">On click, <code>MyApp</code> updates its <code>count</code> state to <code>1</code> and passes it down to both children</p>
+          </div>
+          <p>Now when you click either button, the <code>count</code> in <code>MyApp</code> will change, which will change both of the counts in <code>MyButton</code>. Here's how you can express this in code.
+
+First, move the state up from <code>MyButton</code> into <code>MyApp</code>:</p>
+<pre><code>export default function MyApp() {
+    const [count, setCount] = useState(0);
+  
+    function handleClick() {
+      setCount(count + 1);
+    }
+  
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Counters that update separately&lt;/h1&gt;
+        &lt;MyButton /&gt;
+        &lt;MyButton /&gt;
+      &lt;/div&gt;
+    );
+  }
+  
+  function MyButton() {
+    // ... we're moving code from here ...
+  }</code></pre>
+<p>Then, pass the state down from <code>MyApp</code> to each <code>MyButton</code>, together with the shared click handler. You can pass information to <code>MyButton</code> using the JSX curly braces, just like you previously did with built-in tags like &lt;img&gt;:</p>
+<pre><code>export default function MyApp() {
+    const [count, setCount] = useState(0);
+  
+    function handleClick() {
+      setCount(count + 1);
+    }
+  
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Counters that update together&lt;/h1&gt;
+        &lt;MyButton count={count} onClick={handleClick} /&gt;
+        &lt;MyButton count={count} onClick={handleClick} /&gt;
+      &lt;/div&gt;
+    );
+  }</code></pre>
+  <p>The information you pass down like this is called props. Now the <code>MyApp</code> component contains the <code>count</code> state and the <code>handleClick</code> event handler, and passes both of them down as props to each of the buttons.
+
+Finally, change <code>MyButton</code> to read the props you have passed from its parent component:</p>
+<pre><code>function MyButton({ count, onClick }) {
+    return (
+      &lt;button&gt; onClick={onClick}&gt;
+        Clicked {count} times
+      &lt;/button&gt;
+    );
+  }</code></pre>
+  <p>When you click the button, the <code>onClick</code> handler fires. Each button's <code>onClick</code> prop was set to the <code>handleClick</code> function inside <code>MyApp</code>, so the code inside of it runs. That code calls <code>setCount(count + 1)</code>, incrementing the <code>count</code> state variable. The new <code>count</code> value is passed as a prop to each button, so they all show the new value. This is called “lifting state up”. By moving state up, you've shared it between components.</p>
+  <pre><code>import { useState } from 'react';
+
+export default function MyApp() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Counters that update together&lt;/h1&gt;
+      &lt;MyButton count={count} onClick={handleClick} /&gt;
+      &lt;MyButton count={count} onClick={handleClick} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function MyButton({ count, onClick }) {
+  return (
+    &lt;button onClick={onClick}&gt;
+      Clicked {count} times
+    &lt;/button&gt;
+  );
+}</code></pre>
+        </article>
+      </section>
+      <div class="divider"></div>
+      <section id="Next_Steps" class="main-section">
+        <header>Next Steps</header>
+        <article>
+          <p>
+          By now, you know the basics of how to write React code!
+
+Check out the <a target="_blank" href="https://react.dev/learn/tutorial-tic-tac-toe">Tutorial</a> to put them into practice and build your first mini-app with React.</p>
+<p class="footer">All the documentation in this page is taken from the <a href="https://react.dev/learn" target="_blank">React Learn Website</a></p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
